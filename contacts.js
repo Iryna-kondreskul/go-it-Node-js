@@ -1,35 +1,70 @@
+const path = require("path");
 const fs = require("fs").promises;
-const path  = require("path");
+const shortid = require("shortid");
 
 const contactsPath = path.resolve("./db/contacts.json");
 
-// contacts.js
+async function listContacts() {
+  try {
+    const data = await fs.readFile(contactsPath, "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-/*
- * Раскомментируй и запиши значение
-const contactsPath = ;
- */
+async function getContactById(contactId) {
+  try {
+    const data = await listContacts();
+    const gottenContact = data.find((contact) => contact.id === contactId);
+    return gottenContact;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-// TODO: задокументировать каждую функцию
-function listContacts() {
-    // ...твой код. Возвращает массив контактов.
+async function removeContact(contactId) {
+  try {
+    const data = await listContacts();
+    const removedContact = data.find((contact) => contact.id === contactId);
+    const filteredContacts = data.filter((contact) => contact.id !== contactId);
+    if (!removedContact) {
+      return;
+    } else {
+    }
+    await fs.writeFile(
+      contactsPath,
+      JSON.stringify(filteredContacts, null, 2),
+      "utf8"
+    );
+    return removedContact;
+  } catch (error) {
+    console.error(error);
   }
-  
-  function getContactById(contactId) {
-    // ...твой код. Возвращает объект контакта с таким id. Возвращает null, если объект с таким id не найден.
-  }
-  
-  function removeContact(contactId) {
-    // ...твой код. Возвращает объект удаленного контакта. Возвращает null, если объект с таким id не найден.
-  }
-  
-  function addContact(name, email, phone) {
-    // ...твой код. Возвращает объект добавленного контакта. 
-  }
+}
 
- module.export = {
-    listContacts,
-    getContactById,
-    removeContact,
-    addContact,
- } 
+async function addContact(name, email, phone) {
+  try {
+    const data = await listContacts();
+    const newData = {
+      id: shortid.generate(),
+      name,
+      email,
+      phone,
+    };
+
+    data.push(newData);
+    await fs.writeFile(contactsPath, JSON.stringify(data, null, 2), "utf8");
+
+    return newData;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+module.exports = {
+  listContacts,
+  getContactById,
+  removeContact,
+  addContact,
+};

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nod index",
+    "start": "node index",
     "dev": "nodemon index"
   },
   "keywords": [],
@@ -13,5 +13,9 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "shortid": "^2.2.16"
   }
 }
