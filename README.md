@@ -1,5 +1,6 @@
 # go-it-Node-js
-Отримуємо і виводимо весь список контактів у вигляді таблиці (console.table) node index.js --action="list"
+Отримуємо і виводимо весь список контактів
+у вигляді таблиці (console.table) node index.js --action="list"
 https://ibb.co/Twsq49Y
 Отримуємо контакт по id node index.js --action="get" --id 05olLMgyVQdWRwgKfg5J6
 https://ibb.co/w6KwJyv
